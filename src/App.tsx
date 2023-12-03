@@ -1,20 +1,28 @@
 import { useEffect, useState } from 'react'
 import Web3 from 'web3'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import ethLogo from './assets/eth_logo.png'
 import './App.css'
+import { ChessGame } from './ChessGame';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [web3, setWeb3] = useState<Web3 | null>(null);
   const [accounts, setAccounts] = useState<string[]>([]);
 
   // Loads the available user eth accounts when page loads.
   useEffect(() => {
     const loadData = async () => {
-      const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
-      const accounts = await web3.eth.getAccounts()
-      console.log(accounts);
-      setAccounts(accounts)
+      if (window.ethereum) {
+
+        const web3network = new Web3(Web3.givenProvider || "http://localhost:8545")
+        const accounts = await web3network.eth.getAccounts()
+
+        console.log(web3network);
+        console.log(accounts);
+        setWeb3(web3network)
+        setAccounts(accounts)
+      } else {
+        console.log("Ethereum wallet not found");
+      }
     }
 
     loadData()
@@ -23,28 +31,17 @@ function App() {
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+        <a href="" target="_blank">
+          <img src={ethLogo} className="logo" alt="Vite logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>Ethereum Chess</h1>
       <div className="card">
         <p>
           Number of accounts: <code>{accounts.length}</code>
         </p>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <ChessGame />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
