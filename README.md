@@ -17,6 +17,15 @@ Run the dev server
 npm run dev
 ```
 
+### Running with test network
+
+To run a local network, we must run the hardhat node from our dApp repo - [nyu-eth-chess](https://github.com/sahishnu/nyu-eth-chess).
+
+Follow the setup instructions there. And from the repo run:
+```
+npx hardhat node
+```
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
