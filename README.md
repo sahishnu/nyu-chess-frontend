@@ -1,3 +1,22 @@
+## Development 
+
+### Getting started
+
+Clone the repo
+```
+https://github.com/sahishnu/nyu-chess-frontend.git
+```
+
+Install dependencies
+```
+npm i
+```
+
+Run the dev server
+```
+npm run dev
+```
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
