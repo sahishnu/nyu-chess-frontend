@@ -1,28 +1,23 @@
 import { useCallback, useState } from "react";
 import { Chess } from 'chess.js'
 import { Chessboard } from "react-chessboard";
+import { constructMessage, signMessage } from "./utils";
+import './ChessGame.css';
+import Web3 from "web3";
+interface IChessGameProps {
+  activeAccount?: string;
+  web3: Web3;
+}
 
-export const ChessGame = () => {
+export const ChessGame = ({ activeAccount = '', web3 }: IChessGameProps) => {
   const [game, setGame] = useState(new Chess());
-  const [currentTimeout, setCurrentTimeout] = useState<NodeJS.Timeout>();
+  const [message, setMessage] = useState('')
 
   const makeMove = useCallback((move) => {
-    const m = game.move(move);
-    console.log(m)
+    game.move(move);
     setGame(new Chess(game.fen()))
   }, [game])
 
-  const makeRandomMove = () => {
-    const possibleMoves = game.moves();
-
-    // exit if the game is over
-    if (game.isGameOver() || game.isDraw() || possibleMoves.length === 0) {
-      return;
-    }
-
-    const randomIndex = Math.floor(Math.random() * possibleMoves.length);
-    makeMove(possibleMoves[randomIndex])
-  }
 
   const onDrop = (sourceSquare, targetSquare, piece) => {
     const move = makeMove({
@@ -34,9 +29,9 @@ export const ChessGame = () => {
     // illegal move
     if (move === null) return false;
 
-    // store timeout so it can be cleared on undo/reset so computer doesn't execute move
-    const newTimeout = setTimeout(makeRandomMove, 200);
-    setCurrentTimeout(newTimeout);
+    const m = constructMessage(activeAccount, game.fen(), 1, activeAccount);
+    setMessage(m)
+    signMessage(m, activeAccount, web3);
     return true;
   }
 
@@ -45,28 +40,21 @@ export const ChessGame = () => {
     console.log(undo)
     if (undo) {
       makeMove(undo)
-      clearTimeout(currentTimeout);
     }
-  }, [currentTimeout, game, makeMove]);
+  }, [game, makeMove]);
 
   const handleReset = useCallback(() => {
     setGame(new Chess());
-    clearTimeout(currentTimeout);
-  }, [currentTimeout]);
+  }, []);
 
   return (
     <div>
       <Chessboard id="game" position={game.fen()} onPieceDrop={onDrop} />
-      <button
-          onClick={handleReset}
-        >
-          reset
-        </button>
-        <button
-          onClick={handleUndo}
-        >
-          undo
-        </button>
+      <button onClick={handleReset}>reset</button>
+      <button onClick={handleUndo}>undo</button>
+      <p className="message-container">
+        <code>{message}</code>
+      </p>
     </div>
   )
 }

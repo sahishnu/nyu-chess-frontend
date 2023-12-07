@@ -1,0 +1,5 @@
+.message-container {
+  max-width: 300px;
+  width: inherit;
+  overflow-wrap: break-word;
+}

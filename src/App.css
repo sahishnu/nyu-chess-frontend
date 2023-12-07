@@ -1,12 +1,40 @@
 #root {
   max-width: 1280px;
+  min-height: 100dvh;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 2rem;
   text-align: center;
 }
 
+.container {
+  /* max-width: 500px; */
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px solid #707070;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+/* .layout {
+  display: flex;
+} */
+
 .logo {
-  height: 6em;
+  height: 4em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
@@ -14,29 +42,22 @@
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
 
 .card {
   padding: 2em;
 }
 
+.join-start-game {
+  display: flex;
+  flex-direction: column;
+}
+
 .read-the-docs {
   color: #888;
+}
+
+.decoded-message-data {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
