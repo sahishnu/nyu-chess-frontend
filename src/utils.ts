@@ -2,10 +2,16 @@ import { AbiCoder, ethers } from "ethers";
 import { JsonRpcSigner } from "ethers";
 
 const coder = AbiCoder.defaultAbiCoder()
-// recipient is the address that should be paid.
-// amount, in wei, specifies how much ether should be sent.
-// nonce can be any unique number to prevent replay attacks
-// contractAddress is used to prevent cross-contract replay attacks
+
+/**
+ * 
+ * @param recipient The public address of the players opponent.
+ * @param boardState The current PGN move string, eg 1. d3 e6 2. Qd2 Qg5 3. Qxg5 Bd6 4. Qf4
+ * @param nonce Meant to be a sequence number to help players keep count of moves. Must increase
+ *              in every transaction
+ * @param contractAddress The address of the game contract. It is used to prevent cross-contract replay attacks.
+ * @returns An encoded message that mimics the eth_sign.
+ */
 export const constructMessage = (recipient: string, boardState: string, nonce: number, contractAddress: string) => {
   const message = coder.encode(
     ['address', 'string', 'uint256', 'address'],
