@@ -7,7 +7,7 @@ interface IEncodeMessageFormProps {
   signer: JsonRpcSigner
 }
 
-export const EncodeMessageForm = ({ signer}: IEncodeMessageFormProps) => {
+export const EncodeMessageForm = ({ signer }: IEncodeMessageFormProps) => {
   const [signingAddress, setSigningAddress] = useState(signer?.address || '');
   const [opponentAddress, setOpponentAddress] = useState('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266');
   const [pgnString, setPgnString] = useState('1. e3');
