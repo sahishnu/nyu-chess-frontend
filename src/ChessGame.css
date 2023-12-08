@@ -1,7 +1,41 @@
-.message-container {
-  max-width: 300px;
-  width: inherit;
-  overflow-wrap: break-word;
+.chess-board-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.board-title {
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.load-pgn-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.form-field-label {
+  margin-right: 1rem;
+}
+
+.players-turn-indicator {
+  text-align: left;
+}
+
+.chess-buttons {
+  margin: 1rem 0;
+
+  > button {
+    margin-right: 1rem
+  }
 }
 
 .chess-pgn-container {

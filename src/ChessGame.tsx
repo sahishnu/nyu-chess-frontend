@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { Chess,  } from 'chess.js'
 import { Chessboard } from "react-chessboard";
 import './ChessGame.css';
-import { Piece, Square } from "react-chessboard/dist/chessboard/types";
+import { Arrow, Piece, Square } from "react-chessboard/dist/chessboard/types";
 
 interface GameMove {
   from: string;
@@ -61,16 +61,33 @@ export const ChessGame = () => {
     navigator.clipboard.writeText(game.pgn())
   }, [game])
 
+  const lastMove = game.history({ verbose: true }).at(-1)
+  const arrows: Arrow[] = []
+  if (lastMove) {
+    arrows.push([lastMove?.from, lastMove?.to, 'red'])
+  }
+
   return (
-    <div>
-      <div>
-      <input value={loadBoardVal} onChange={(e) => setLoadBoardVal(e.target.value)} />
-      <button onClick={handleLoadBoardFromMoveList}>Load board (PGN)</button>
+    <div className="chess-board-container">
+      <div className="board-title">CHESS BOARD</div>
+      <div className="load-pgn-section">
+        <div className="form-field">
+          <span className="form-field-label">Initial PGN:</span>
+          <textarea rows={4} cols={30} className="form-field-input" value={loadBoardVal} onChange={(e) => setLoadBoardVal(e.target.value)} />
+        </div>
+        <button onClick={handleLoadBoardFromMoveList}>Load board from PGN</button>
       </div>
-      <div>{game.turn() === 'b' ? 'Black' : 'White'}'s' turn</div>
-      <Chessboard id="game" position={game.fen()} onPieceDrop={onDrop} />
-      <button onClick={handleReset}>reset</button>
-      <button onClick={handleUndo}>undo</button>
+      <div className="players-turn-indicator">{game.turn() === 'b' ? '⚫ Black' : '⚪ White'}'s turn</div>
+      <Chessboard
+        id="game"
+        position={game.fen()}
+        onPieceDrop={onDrop}
+        customArrows={arrows}
+      />
+      <div className="chess-buttons">
+        <button onClick={handleReset}>reset</button>
+        <button onClick={handleUndo}>undo</button>
+      </div>
       <div className="chess-pgn-container">
         <code>
         <div>
