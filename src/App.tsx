@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import ethLogo from './assets/eth_logo.png'
 import './App.css'
 import { ChessGame } from './ChessGame';
 import { EncodeMessageForm } from './EncodeMessageForm/EncodeMessageForm';
 import { JsonRpcSigner, ethers } from 'ethers';
 import { DecodeMessageForm } from './VerifySignatureForm/VerifySignatureForm';
+import { GetContractForm } from './GetContractForm/GetContractForm';
 
 function App() {
-  const [joinGameInputVal, setJoinGameInputVal] = useState('')
   const [signer, setSigner] = useState<JsonRpcSigner | null>(null)
+  const [provider, setProvider] = useState<ethers.BrowserProvider | null>()
 
   // Loads the available user eth accounts when page loads.
   useEffect(() => {
@@ -18,6 +19,7 @@ function App() {
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
         setSigner(signer);
+        setProvider(provider);
       } else {
         console.log("Ethereum wallet not found");
       }
@@ -44,11 +46,9 @@ function App() {
       <div className="layout">
         <div className="card join-start-game">
           <button>Start a game</button>
-          or
-          <div>
-            <input value={joinGameInputVal} onChange={(e) => setJoinGameInputVal(e.target.value)} />
-            <button onClick={() => console.log(joinGameInputVal)}>Join a game</button>
-          </div>
+        </div>
+        <div className="card">
+          <GetContractForm provider={provider} />
         </div>
         <div className="card">
           <ChessGame />
