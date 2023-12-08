@@ -12,6 +12,7 @@ export interface IContractState {
     gameOver: boolean;
   };
   timeoutInterval: string;
+  balance: string;
 }
 
 export interface IContractStateProps {
@@ -57,6 +58,8 @@ export const ContractState = ({ contractAddress, contractState, error }: IContra
           Game::Turn: {contractState?.gameState?.currentTurn}
           <br/>--<br/>
           Game::Game Over: {contractState?.gameState?.gameOver ? 'true' : 'false'}
+          <br/>--<br/>
+          Contract Balance: {contractState.balance}
           </>
         ) : null}
       </code>

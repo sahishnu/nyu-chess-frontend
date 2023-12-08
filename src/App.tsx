@@ -6,6 +6,7 @@ import { EncodeMessageForm } from './EncodeMessageForm/EncodeMessageForm';
 import { JsonRpcSigner, ethers } from 'ethers';
 import { DecodeMessageForm } from './VerifySignatureForm/VerifySignatureForm';
 import { GetContractForm } from './GetContractForm/GetContractForm';
+import { DeployContractForm } from './DeployContractForm/DeployContractForm';
 
 function App() {
   const [signer, setSigner] = useState<JsonRpcSigner | null>(null)
@@ -44,8 +45,8 @@ function App() {
         </div>
       </header>
       <div className="layout">
-        <div className="card join-start-game">
-          <button>Start a game</button>
+        <div className="card">
+          <DeployContractForm signer={signer} />
         </div>
         <div className="card">
           <GetContractForm provider={provider} signer={signer} />

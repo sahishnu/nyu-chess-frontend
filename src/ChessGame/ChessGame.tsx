@@ -23,7 +23,6 @@ export const ChessGame = () => {
 
 
   const onDrop = (sourceSquare: Square, targetSquare: Square, piece: Piece) => {
-    const moveNumber = game.moveNumber()
     const move = makeMove({
       from: sourceSquare,
       to: targetSquare,
@@ -32,10 +31,6 @@ export const ChessGame = () => {
 
     // illegal move
     if (move === null) return false;
-
-    console.log('Move', move)
-    console.log('PGN', game.pgn())
-    console.log('Move Number', moveNumber)
 
     forceUpdate()
     return true;

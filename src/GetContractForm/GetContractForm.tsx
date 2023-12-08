@@ -26,13 +26,15 @@ export const GetContractForm = ({ provider, signer }: IGetContractFormProps) => 
         const gameState = await contract.state()
         const timeoutInterval = await contract.timeoutInterval();
         const timeout = await contract.timeout();
+        const balance = await provider.getBalance(contractAddressVal);
         setContractState({
           player1,
           player2,
           wagerAmount: formatEther(wagerAmount),
           gameState,
           timeoutInterval: formatUnits(timeoutInterval),
-          timeout: formatUnits(timeout)
+          timeout: formatUnits(timeout),
+          balance: formatEther(balance)
         });
       } catch (e) {
         console.error(e)
@@ -61,18 +63,27 @@ export const GetContractForm = ({ provider, signer }: IGetContractFormProps) => 
     }
   }, [contract, fetchContractState])
 
-  const handleClickJoinGame = useCallback(async () => {
+  const handleClickJoinGame = useCallback(async (wagerAmount: string) => {
     if (contract) {
       try {
-        const receipt = await contract.join({ value: parseEther('0.001') });
-        await receipt.await()
+        const receipt = await contract.join({ value: parseEther(wagerAmount) });
         console.log(receipt)
       } catch (e) {
-        //
         console.error(e)
       }
     }
   }, [contract]);
+
+  const handleClickCancelGame = useCallback(async () => {
+    if (contract) {
+      try {
+        const receipt = await contract.cancel();
+        console.log(receipt)
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }, [contract])
 
   return (
     <div className="join-game-form">
@@ -85,7 +96,7 @@ export const GetContractForm = ({ provider, signer }: IGetContractFormProps) => 
         </div>
       </div>
       <ContractState contractState={contractState} contractAddress={contractAddressVal} error={error} />
-      {contractState ? <ContractActions onClickJoin={handleClickJoinGame} /> : null}
+      {contractState ? <ContractActions onClickJoin={handleClickJoinGame} onClickCancel={handleClickCancelGame} /> : null}
     </div>
   )
 }
