@@ -41,7 +41,7 @@ export const GetContractForm = ({ provider, signer }: IGetContractFormProps) => 
         setError(e?.message)
       }
     }
-  }, [contract])
+  }, [contract, contractAddressVal, provider])
 
   const handleClickFetchContract = useCallback(async () => {
     try {
