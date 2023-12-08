@@ -38,6 +38,10 @@
   }
 }
 
+.board-container {
+  max-width: 400px;
+}
+
 .chess-pgn-container {
   padding: 1rem;
   background-color: #493535;

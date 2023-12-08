@@ -74,27 +74,27 @@ export const DecodeMessageForm = () => {
       </div>
       <div className="form-field">
         <span className="form-field-label">Signed Message</span>
-        <textarea rows={4} className="form-field-input" value={signedMessage} onChange={(e) => setSignedMessage(e.target.value)} />
+        <textarea placeholder="Signed message from opponent" rows={4} className="form-field-input" value={signedMessage} onChange={(e) => setSignedMessage(e.target.value)} />
       </div>
       <div className="form-field">
         <span className="form-field-label">Signer Public Addr.</span>
-        <textarea className="form-field-input" value={signerAddress} onChange={(e) => setSignerAddress(e.target.value)} />
+        <textarea placeholder="Opponents public address" className="form-field-input" value={signerAddress} onChange={(e) => setSignerAddress(e.target.value)} />
       </div>
       <div className="form-field">
         <span className="form-field-label">Receiver Public Address</span>
-        <input className="form-field-input" value={receiverAddress} onChange={(e) => setReceiverAddress(e.target.value)} />
+        <input placeholder="Your public address" className="form-field-input" value={receiverAddress} onChange={(e) => setReceiverAddress(e.target.value)} />
       </div>
       <div className="form-field">
         <span className="form-field-label">Game PGN String</span>
-        <textarea className="form-field-input" value={pgnString} onChange={(e) => setPgnString(e.target.value)} />
+        <textarea placeholder="ex. 1. e3 e6" className="form-field-input" value={pgnString} onChange={(e) => setPgnString(e.target.value)} />
       </div>
       <div className="form-field">
-        <span className="form-field-label">Move Number</span>
-        <input className="form-field-input" value={sequenceNumber} onChange={(e) => setSequenceNumber(e.target.value)} />
+        <span className="form-field-label">Sequence Number</span>
+        <input placeholder="Ex. 5" className="form-field-input" value={sequenceNumber} onChange={(e) => setSequenceNumber(e.target.value)} />
       </div>
       <div className="form-field">
         <span className="form-field-label">Game Contract Address</span>
-        <input className="form-field-input" value={gameContractAddress} onChange={(e) => setGameContractAddress(e.target.value)} />
+        <input placeholder="Game Address" className="form-field-input" value={gameContractAddress} onChange={(e) => setGameContractAddress(e.target.value)} />
       </div>
       <button onClick={handleClickVerify} disabled={!isAllFieldsFilled} className="form-submit-button">Recover signer & verify</button>
       {

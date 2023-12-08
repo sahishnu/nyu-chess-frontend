@@ -3,9 +3,14 @@
   flex-direction: column;
 }
 
+.get-contract-btn {
+  margin-bottom: 0;
+  margin-left: 1rem;
+}
+
 .contract-actions {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   margin: 1rem 0;
   gap: 0.5rem;

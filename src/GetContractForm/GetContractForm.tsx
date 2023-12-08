@@ -79,9 +79,11 @@ export const GetContractForm = ({ provider, signer }: IGetContractFormProps) => 
       <div className="form-title">GET EXISTING GAME CONTRACT</div>
       <div className="form-field">
         <span className="form-field-label">Contract Address</span>
-        <input className="form-field-input" value={contractAddressVal} onChange={(e) => setContractAddressVal(e.target.value)} />
+        <div style={{ display: 'flex', alignItems: 'center'}}>
+          <textarea className="form-field-input" value={contractAddressVal} placeholder="Ex. 0xe123...789" onChange={(e) => setContractAddressVal(e.target.value)} />
+          <button onClick={handleClickFetchContract} className="form-submit-button get-contract-btn">Get Contract</button>
+        </div>
       </div>
-      <button onClick={handleClickFetchContract} className="form-submit-button">Get Contract</button>
       <ContractState contractState={contractState} contractAddress={contractAddressVal} error={error} />
       {contractState ? <ContractActions onClickJoin={handleClickJoinGame} /> : null}
     </div>

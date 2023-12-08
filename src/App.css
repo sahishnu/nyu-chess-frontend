@@ -7,9 +7,8 @@
 }
 
 .container {
-  /* max-width: 500px; */
   height: 100%;
-  width: 100%;
+  width: 650px;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -39,10 +38,15 @@
   filter: drop-shadow(0 0 2em #646cffaa);
 }
 
+.layout {
+  width: 100%
+}
+
 .card {
   border-bottom: 1px solid #000;
   padding: 2em;
-  max-width: 500px;
+  width: 100%;
+  max-width: 650px;
 }
 
 .join-start-game {

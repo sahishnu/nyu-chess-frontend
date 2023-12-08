@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ethLogo from './assets/eth_logo.png'
 import './App.css'
-import { ChessGame } from './ChessGame';
+import { ChessGame } from './ChessGame/ChessGame';
 import { EncodeMessageForm } from './EncodeMessageForm/EncodeMessageForm';
 import { JsonRpcSigner, ethers } from 'ethers';
 import { DecodeMessageForm } from './VerifySignatureForm/VerifySignatureForm';

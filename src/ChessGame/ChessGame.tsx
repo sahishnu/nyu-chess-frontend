@@ -73,17 +73,21 @@ export const ChessGame = () => {
       <div className="load-pgn-section">
         <div className="form-field">
           <span className="form-field-label">Initial PGN:</span>
-          <textarea rows={4} cols={30} className="form-field-input" value={loadBoardVal} onChange={(e) => setLoadBoardVal(e.target.value)} />
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <textarea placeholder="Eg. 1. d3 e6 2. Qd2 Qg5" rows={4} cols={30} className="form-field-input" value={loadBoardVal} onChange={(e) => setLoadBoardVal(e.target.value)} />
+            <button style={{ marginLeft: '1rem' }} onClick={handleLoadBoardFromMoveList}>Load board from PGN</button>
+          </div>
         </div>
-        <button onClick={handleLoadBoardFromMoveList}>Load board from PGN</button>
       </div>
       <div className="players-turn-indicator">{game.turn() === 'b' ? '⚫ Black' : '⚪ White'}'s turn</div>
-      <Chessboard
-        id="game"
-        position={game.fen()}
-        onPieceDrop={onDrop}
-        customArrows={arrows}
-      />
+      <div className="board-container">
+        <Chessboard
+          id="game"
+          position={game.fen()}
+          onPieceDrop={onDrop}
+          customArrows={arrows}
+        />
+      </div>
       <div className="chess-buttons">
         <button onClick={handleReset}>reset</button>
         <button onClick={handleUndo}>undo</button>
