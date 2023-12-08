@@ -26,9 +26,10 @@
 
 .encoded-output-container {
   padding: 1rem;
+  box-sizing: border-box;
   background-color: #493535;
   border-radius: 8px;
-  max-width: 400px;
+  width: 100%;
   text-align: left;
   word-wrap: break-word;
 }

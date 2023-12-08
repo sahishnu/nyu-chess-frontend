@@ -42,7 +42,8 @@
   padding: 1rem;
   background-color: #493535;
   border-radius: 8px;
-  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
   text-align: left;
   word-wrap: break-word;
 }

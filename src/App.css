@@ -29,13 +29,9 @@
   align-items: center;
 }
 
-/* .layout {
-  display: flex;
-} */
-
 .logo {
-  height: 4em;
-  padding: 1.5em;
+  height: 3em;
+  padding: 1em;
   will-change: filter;
   transition: filter 300ms;
 }
@@ -46,6 +42,7 @@
 .card {
   border-bottom: 1px solid #000;
   padding: 2em;
+  max-width: 500px;
 }
 
 .join-start-game {

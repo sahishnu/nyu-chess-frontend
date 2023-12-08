@@ -28,7 +28,7 @@ function App() {
     loadData()
   }, [])
   
-  if (!signer) {
+  if (!signer || !provider) {
     return <div>Please connect to ethereum</div>
   }
 
@@ -37,7 +37,7 @@ function App() {
       <header className="header">
         <div className="header-left">
           <img src={ethLogo} className="logo" alt="Vite logo" />
-          <h2>Ethereum Chess</h2>
+          <h2>ETH CHESS</h2>
         </div>
         <div className="header-right">
           <code>{signer?.address}</code>
@@ -48,7 +48,7 @@ function App() {
           <button>Start a game</button>
         </div>
         <div className="card">
-          <GetContractForm provider={provider} />
+          <GetContractForm provider={provider} signer={signer} />
         </div>
         <div className="card">
           <ChessGame />
