@@ -3,3 +3,12 @@
   width: inherit;
   overflow-wrap: break-word;
 }
+
+.chess-pgn-container {
+  padding: 1rem;
+  background-color: #493535;
+  border-radius: 8px;
+  max-width: 400px;
+  text-align: left;
+  word-wrap: break-word;
+}

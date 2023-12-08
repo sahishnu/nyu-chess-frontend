@@ -1,5 +1,5 @@
-import Web3 from "web3";
-import { AbiCoder } from "ethers";
+import { AbiCoder, ethers } from "ethers";
+import { JsonRpcSigner } from "ethers";
 
 const coder = AbiCoder.defaultAbiCoder()
 // recipient is the address that should be paid.
@@ -12,7 +12,6 @@ export const constructMessage = (recipient: string, boardState: string, nonce: n
     [recipient, boardState, nonce, contractAddress]
   )
   return message;
-  // web3.eth.personal.sign(hash, web3.eth.defaultAccount, callback);
 } 
 
 export const decodeMessage = (message: string) => {
@@ -24,15 +23,33 @@ export const decodeMessage = (message: string) => {
   return decodedMessage;
 }
 
-export const signMessage = (encodedMessage: string, signer: string, web3: Web3) => {
-  const signedMessage = web3.eth.sign(
-    encodedMessage,
-    signer
-  ).then((v) => {
-    console.log(v)
-  })
-
-  console.log(signedMessage)
+/**
+ * 
+ * @param encodedMessage 
+ * @param signer 
+ * @returns A signed message using the signers private key
+ */
+export const signMessage = async (encodedMessage: string, signer: JsonRpcSigner) => {
+  const signedMessage = await signer.signMessage(
+    encodedMessage
+  );
 
   return signedMessage;
+}
+
+export interface IVerification {
+  recoveredAddress: string;
+  expectedAddress: string;
+  isMatch: boolean;
+}
+
+export const verifyMessage = (recipient: string, boardState: string, nonce: number, contractAddress: string, signature: string, expectedAddress: string): IVerification => {
+  const message = constructMessage(recipient, boardState, nonce, contractAddress)
+  const recoveredAddress = ethers.verifyMessage(message, signature);
+
+  return {
+    recoveredAddress,
+    expectedAddress,
+    isMatch: recoveredAddress === expectedAddress
+  }
 }

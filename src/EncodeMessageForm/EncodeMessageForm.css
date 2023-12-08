@@ -1,0 +1,45 @@
+.encode-message-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-title {
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.form-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.form-field-label {
+  margin-right: 1rem;
+}
+
+.form-submit-button {
+  margin-bottom: 1rem;
+}
+
+.encoded-output-container {
+  padding: 1rem;
+  background-color: #493535;
+  border-radius: 8px;
+  max-width: 400px;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.encoded-output-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.encoded-output-copy {
+  padding: 0.3em 0.6em;
+  font-size: 13px;
+}
