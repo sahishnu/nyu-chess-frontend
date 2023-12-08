@@ -51,7 +51,7 @@ export const ContractState = ({ contractAddress, contractState, error }: IContra
           <br/>--<br/>
           Timeout: {contractState?.timeout}
           <br/>--<br/>
-          Game::Seq: {formatUnits(contractState?.gameState?.seq || 0)}
+          Game::Seq: {contractState?.gameState?.seq.toString()}
           <br/>--<br/>
           Game::Board: {contractState?.gameState?.board || '""'}
           <br/>--<br/>

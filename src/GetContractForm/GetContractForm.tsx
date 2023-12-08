@@ -85,6 +85,17 @@ export const GetContractForm = ({ provider, signer }: IGetContractFormProps) => 
     }
   }, [contract])
 
+  const handleClickMakeMove = useCallback(async (seqNumber: string, moveList: string) => {
+    if (contract) {
+      try {
+        const receipt = await contract.move(parseInt(seqNumber), moveList);
+        console.log(receipt)
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }, [contract])
+
   return (
     <div className="join-game-form">
       <div className="form-title">GET EXISTING GAME CONTRACT</div>
@@ -96,7 +107,7 @@ export const GetContractForm = ({ provider, signer }: IGetContractFormProps) => 
         </div>
       </div>
       <ContractState contractState={contractState} contractAddress={contractAddressVal} error={error} />
-      {contractState ? <ContractActions onClickJoin={handleClickJoinGame} onClickCancel={handleClickCancelGame} /> : null}
+      {contractState ? <ContractActions onClickJoin={handleClickJoinGame} onClickCancel={handleClickCancelGame} onClickMakeMove={handleClickMakeMove} /> : null}
     </div>
   )
 }
