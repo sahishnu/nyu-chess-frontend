@@ -8,15 +8,15 @@ export const DecodeMessageForm = () => {
   const [signerAddress, setSignerAddress] = useState('');
   const [receiverAddress, setReceiverAddress] = useState('');
   const [pgnString, setPgnString] = useState('');
-  const [moveNumber, setMoveNumber] = useState('');
+  const [sequenceNumber, setSequenceNumber] = useState('');
   const [gameContractAddress, setGameContractAddress] = useState('');
 
   const [verification, setVerification] = useState<IVerification | null>(null);
 
   const handleClickVerify = useCallback(() => {
-    const verification = verifyMessage(receiverAddress, pgnString, parseInt(moveNumber), gameContractAddress, signedMessage, signerAddress);
+    const verification = verifyMessage(receiverAddress, pgnString, parseInt(sequenceNumber), gameContractAddress, signedMessage, signerAddress);
     setVerification(verification);
-  }, [receiverAddress, signerAddress, pgnString, moveNumber, gameContractAddress, signedMessage]);
+  }, [receiverAddress, signerAddress, pgnString, sequenceNumber, gameContractAddress, signedMessage]);
 
   // Paste the copied statement into the form.
   const handleClickPaste = useCallback(async () => {
@@ -36,8 +36,8 @@ export const DecodeMessageForm = () => {
       if (key === 'Game PGN') {
         setPgnString(value)
       }
-      if (key === 'Move Number') {
-        setMoveNumber(value)
+      if (key === 'Sequence Number') {
+        setSequenceNumber(value)
       }
       if (key === 'Game Contract Addr.') {
         setGameContractAddress(value)
@@ -51,7 +51,7 @@ export const DecodeMessageForm = () => {
     setSignerAddress('')
     setReceiverAddress('')
     setPgnString('')
-    setMoveNumber('')
+    setSequenceNumber('')
     setGameContractAddress('')
     setVerification(null)
   }, [])
@@ -59,9 +59,9 @@ export const DecodeMessageForm = () => {
   // Clear recovered address if any fields change value.
   useEffect(() => {
     setVerification(null)
-  }, [signedMessage, signerAddress, receiverAddress, pgnString, moveNumber, gameContractAddress])
+  }, [signedMessage, signerAddress, receiverAddress, pgnString, sequenceNumber, gameContractAddress])
 
-  const isAllFieldsFilled = signedMessage && signerAddress && receiverAddress && pgnString && moveNumber && gameContractAddress;
+  const isAllFieldsFilled = signedMessage && signerAddress && receiverAddress && pgnString && sequenceNumber && gameContractAddress;
 
   return (
     <div className="decode-message-form">
@@ -90,7 +90,7 @@ export const DecodeMessageForm = () => {
       </div>
       <div className="form-field">
         <span className="form-field-label">Move Number</span>
-        <input className="form-field-input" value={moveNumber} onChange={(e) => setMoveNumber(e.target.value)} />
+        <input className="form-field-input" value={sequenceNumber} onChange={(e) => setSequenceNumber(e.target.value)} />
       </div>
       <div className="form-field">
         <span className="form-field-label">Game Contract Address</span>

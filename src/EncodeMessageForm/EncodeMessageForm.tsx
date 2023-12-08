@@ -11,23 +11,28 @@ export const EncodeMessageForm = ({ signer}: IEncodeMessageFormProps) => {
   const [signingAddress, setSigningAddress] = useState(signer?.address || '');
   const [opponentAddress, setOpponentAddress] = useState('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266');
   const [pgnString, setPgnString] = useState('1. e3');
-  const [moveNumber, setMoveNumber] = useState('1');
+  const [sequenceNumber, setSequenceNumber] = useState('1');
   const [gameContractAddress, setGameContractAddress] = useState('0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266');
   const [encodedOutput, setEncodedOutput] = useState('');
 
   const handleClickEncode = useCallback(async () => {
-    const message = constructMessage(opponentAddress.trim(), pgnString.trim(), parseInt(moveNumber), gameContractAddress.trim());
+    const message = constructMessage(opponentAddress.trim(), pgnString.trim(), parseInt(sequenceNumber), gameContractAddress.trim());
     const signedMessage = await signMessage(message, signer)
     setEncodedOutput(signedMessage);
-  }, [opponentAddress, pgnString, moveNumber, gameContractAddress, signer])
+  }, [opponentAddress, pgnString, sequenceNumber, gameContractAddress, signer])
 
   const handleClickCopy = useCallback(() => {
-    const copyValue = `Signed Message: ${encodedOutput}\n--\nSigner Public Addr.: ${signer.address}\n--\nReceiver Public Addr.: ${opponentAddress}\n--\nGame PGN: ${pgnString}\n--\nMove Number: ${moveNumber}\n--\nGame Contract Addr.: ${gameContractAddress}`;
+    const copyValue = [`Signed Message: ${encodedOutput}`,
+    `Signer Public Addr.: ${signer.address}`,
+    `Receiver Public Addr.: ${opponentAddress}`,
+    `Game PGN: ${pgnString}`,
+    `Sequence Number: ${sequenceNumber}`,
+    `Game Contract Addr.: ${gameContractAddress}`];
 
-    navigator.clipboard.writeText(copyValue)
-  }, [opponentAddress, pgnString, moveNumber, gameContractAddress, signer, encodedOutput])
+    navigator.clipboard.writeText(copyValue.join('\n--\n'))
+  }, [opponentAddress, pgnString, sequenceNumber, gameContractAddress, signer, encodedOutput])
 
-  const isAllFieldsFilled = opponentAddress && pgnString && moveNumber && gameContractAddress;
+  const isAllFieldsFilled = opponentAddress && pgnString && sequenceNumber && gameContractAddress;
 
   return (
     <div className="encode-message-form">
@@ -45,8 +50,8 @@ export const EncodeMessageForm = ({ signer}: IEncodeMessageFormProps) => {
         <textarea className="form-field-input" value={pgnString} onChange={(e) => setPgnString(e.target.value)} />
       </div>
       <div className="form-field">
-        <span className="form-field-label">Move Number</span>
-        <input className="form-field-input" value={moveNumber} onChange={(e) => setMoveNumber(e.target.value)} />
+        <span className="form-field-label">Sequence Number</span>
+        <input className="form-field-input" value={sequenceNumber} onChange={(e) => setSequenceNumber(e.target.value)} />
       </div>
       <div className="form-field">
         <span className="form-field-label">Game Contract Address</span>
@@ -68,7 +73,7 @@ export const EncodeMessageForm = ({ signer}: IEncodeMessageFormProps) => {
               <br />--<br />
               Game PGN: {pgnString}
               <br />--<br />
-              Move Number: {moveNumber}
+              Sequence Number: {sequenceNumber}
               <br />--<br />
               Game Contract Addr.: {gameContractAddress}
             </code>
