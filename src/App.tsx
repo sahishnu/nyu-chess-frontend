@@ -7,6 +7,7 @@ import { JsonRpcSigner, ethers } from 'ethers';
 import { DecodeMessageForm } from './VerifySignatureForm/VerifySignatureForm';
 import { GetContractForm } from './GetContractForm/GetContractForm';
 import { DeployContractForm } from './DeployContractForm/DeployContractForm';
+import { Leaderboard } from './Leaderboard/Leaderboard';
 
 function App() {
   const [signer, setSigner] = useState<JsonRpcSigner | null>(null)
@@ -18,6 +19,8 @@ function App() {
       if (window.ethereum) {
 
         const provider = new ethers.BrowserProvider(window.ethereum);
+        // const accounts = await provider.listAccounts();
+        // console.log(accounts[0])
         const signer = await provider.getSigner();
         setSigner(signer);
         setProvider(provider);
@@ -59,6 +62,9 @@ function App() {
         </div>
         <div className="card">
           <DecodeMessageForm />
+        </div>
+        <div className="card">
+          <Leaderboard signer={signer} />
         </div>
       </div>
     </div>
